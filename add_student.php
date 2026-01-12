@@ -1,8 +1,7 @@
 <?php
-require 'db.php';
-require 'auth.php';
+require 'logic/db.php';
+require 'logic/auth.php';
 
-// Захист сторінки
 protectPage($pdo);
 
 $pageTitle = "Додати нового студента";
@@ -18,7 +17,7 @@ require 'blocks/header.php';
         
         <p>
             <label><b>ПІБ (повністю):</b></label><br>
-            <input type="text" name="full_name" required style="width: 100%; max-width: 400px;">
+            <input type="text" name="full_name" required">
         </p>
 
         <p>
@@ -28,32 +27,32 @@ require 'blocks/header.php';
 
         <p>
             <label><b>Адреса за пропискою:</b></label><br>
-            <input type="text" name="home_address" style="width: 100%; max-width: 400px;">
+            <input type="text" name="home_address">
         </p>
 
         <p>
             <label><b>Фактична адреса проживання:</b></label><br>
-            <input type="text" name="actual_address" style="width: 100%; max-width: 400px;">
+            <input type="text" name="actual_address">
         </p>
 
         <p>
             <label><b>Освіта (попередня):</b></label><br>
-            <input type="text" name="eduacation" placeholder="Школа №... або коледж" style="width: 100%; max-width: 400px;">
+            <input type="text" name="eduacation" placeholder="Школа №... або коледж">
         </p>
 
         <p>
             <label><b>Іноземні мови:</b></label><br>
-            <input type="text" name="languages" placeholder="Англійська (B1) тощо" style="width: 100%; max-width: 400px;">
+            <input type="text" name="languages" placeholder="Англійська (B1) тощо">
         </p>
 
         <p>
             <label><b>Мови програмування (базові знання):</b></label><br>
-            <input type="text" name="programming_languages" style="width: 100%; max-width: 400px;">
+            <input type="text" name="programming_languages">
         </p>
 
         <p>
             <label><b>Захоплення / Спортивні секції:</b></label><br>
-            <textarea name="activities" rows="3" style="width: 100%; max-width: 400px;"></textarea>
+            <textarea name="activities" rows="3"></textarea>
         </p>
 
         <p>
@@ -64,8 +63,8 @@ require 'blocks/header.php';
         </p>
 
         <br>
-        <button type="submit" style="padding: 10px 25px; background: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
-            ➕ Створити картку
+        <button type="submit">
+            Створити картку
         </button>
     </form>
 </main>

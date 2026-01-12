@@ -1,6 +1,6 @@
 <?php
-require 'db.php';
-require 'auth.php';
+require 'logic/db.php';
+require 'logic/auth.php';
 
 protectPage($pdo);
 
@@ -18,7 +18,7 @@ require 'blocks/header.php';
         <a href="logout.php">Вийти (logout)</a>
         <br><br>
         <form action="find_student.php" method="get">
-            <input type="text" name="q" placeholder="Пошук студента">
+            <input type="text" name="full-name" placeholder="Пошук студента">
             <button type="submit">Знайти</button>
         </form>
     </nav>

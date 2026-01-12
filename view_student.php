@@ -1,6 +1,6 @@
 <?php
-require 'db.php';
-require 'auth.php';
+require 'logic/db.php';
+require 'logic/auth.php';
 
 protectPage($pdo);
 
