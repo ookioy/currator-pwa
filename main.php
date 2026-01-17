@@ -12,19 +12,6 @@ require 'blocks/header.php';
 ?>
 
 <main>
-    <h1>Вітаємо в системі!</h1>
-    <nav>
-        <a href="add_student.php">Додати студента</a> | 
-        <a href="logout.php">Вийти (logout)</a>
-        <br><br>
-        <form action="find_student.php" method="get">
-            <input type="text" name="full-name" placeholder="Пошук студента">
-            <button type="submit">Знайти</button>
-        </form>
-    </nav>
-
-    <hr>
-
     <h2>Список групи</h2>
 
     <?php if (empty($students)): ?>
