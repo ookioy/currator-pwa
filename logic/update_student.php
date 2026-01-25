@@ -2,44 +2,54 @@
 require 'db.php';
 require 'auth.php';
 
-// Захист: тільки авторизовані можуть оновлювати
 protectPage($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Отримуємо ID (передамо його через hidden input)
     $id = $_POST['id'] ?? null;
     
     if ($id) {
-        $full_name = $_POST['full_name'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-        $home_address = $_POST['home_address'];
-        $additional_info = $_POST['additional_info'];
+        try {
+            // Оновлюємо всі поля з таблиці students
+            $sql = "UPDATE students 
+                    SET full_name = ?, 
+                        phone = ?, 
+                        birth_date = ?,
+                        home_address = ?, 
+                        actual_address = ?,
+                        education = ?,
+                        languages = ?,
+                        info_source = ?,
+                        career_goal = ?,
+                        programming_languages = ?,
+                        activities = ?,
+                        has_experience = ?
+                    WHERE id = ?";
+            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                $_POST['full_name'],
+                $_POST['phone'] ?: null,
+                $_POST['birth_date'] ?: null,
+                $_POST['home_address'] ?: null,
+                $_POST['actual_address'] ?: null,
+                $_POST['education'] ?: null,
+                $_POST['languages'] ?: null,
+                $_POST['info_source'] ?: null,
+                $_POST['career_goal'] ?: null,
+                $_POST['programming_languages'] ?: null,
+                $_POST['activities'] ?: null,
+                isset($_POST['has_experience']) ? 1 : 0,
+                $id
+            ]);
 
-        $sql = "UPDATE students 
-                SET full_name = :full_name, 
-                    phone = :phone, 
-                    email = :email, 
-                    home_address = :home_address, 
-                    additional_info = :additional_info 
-                WHERE id = :id";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'full_name'       => $full_name,
-            'phone'           => $phone,
-            'email'           => $email,
-            'home_address'    => $home_address,
-            'additional_info' => $additional_info,
-            'id'              => $id
-        ]);
-
-        // Повертаємо назад на сторінку перегляду з прапорцем успіху
-        header("Location: view_student.php?id=$id&updated=1");
-        exit;
+            header("Location: ../view_student.php?id=$id&updated=1");
+            exit;
+            
+        } catch (Exception $e) {
+            die("Помилка при оновленні: " . $e->getMessage());
+        }
     }
 }
 
-// Якщо хтось зайшов на цей файл просто так — виганяємо на головну
-header('Location: main.php');
+header('Location: ../main.php');
 exit;

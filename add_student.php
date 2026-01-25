@@ -12,24 +12,70 @@ require 'blocks/header.php';
     <a href="main.php">Назад до списку</a>
     <h1>Нова картка студента</h1>
 
-    <form action="insert_student.php" method="POST" id="studentForm">
+    <form action="logic/insert_student.php" method="POST" id="studentForm">
         <div>
             <h3>Дані студента</h3>
-            <input type="text" name="full_name" placeholder="ПІБ Студента" required>
-            <input type="date" name="birth_date" required>
-            <input type="text" name="home_address" placeholder="Адреса реєстрації" required>
-            <input type="text" name="actual_address" placeholder="Фактична адреса">
-            <input type="text" name="education" placeholder="Освіта">
-            <input type="text" name="languages" placeholder="Мови">
-            <input type="text" name="programming_languages" placeholder="Мови програмування">
-            <textarea name="activities" placeholder="Хобі/Інтереси"></textarea>
             
-            <label>
-                <input type="checkbox" name="has_experience" value="1"> Має досвід роботи
-            </label>
+            <p>
+                <label>ПІБ Студента:</label><br>
+                <input type="text" name="full_name" required>
+            </p>
+
+            <p>
+                <label>Телефон:</label><br>
+                <input type="text" name="phone">
+            </p>
+
+            <p>
+                <label>Дата народження:</label><br>
+                <input type="date" name="birth_date">
+            </p>
+
+            <p>
+                <label>Адреса реєстрації:</label><br>
+                <input type="text" name="home_address">
+            </p>
+
+            <p>
+                <label>Фактична адреса:</label><br>
+                <input type="text" name="actual_address">
+            </p>
+
+            <p>
+                <label>Освіта:</label><br>
+                <input type="text" name="education">
+            </p>
+
+            <p>
+                <label>Мови:</label><br>
+                <input type="text" name="languages">
+            </p>
+
+            <p>
+                <label>Джерело інформації:</label><br>
+                <input type="text" name="info_source">
+            </p>
+
+            <p>
+                <label>Кар'єрна ціль:</label><br>
+                <input type="text" name="career_goal">
+            </p>
+
+            <p>
+                <label>Мови програмування:</label><br>
+                <input type="text" name="programming_languages">
+            </p>
+
+            <p>
+                <label>Хобі/Інтереси:</label><br>
+                <textarea name="activities" rows="3"></textarea>
+            </p>
             
-            <input type="text" name="info_source" placeholder="Звідки дізналися">
-            <input type="text" name="career_goal" placeholder="Кар'єрна ціль">
+            <p>
+                <label>
+                    <input type="checkbox" name="has_experience" value="1"> Має досвід роботи
+                </label>
+            </p>
         </div>
 
         <hr>
@@ -38,17 +84,29 @@ require 'blocks/header.php';
             <h3>Дані батьків</h3>
             <div id="parents-container">
                 <div class="parent-entry">
-                    <input type="text" name="p_full_name[]" placeholder="ПІБ" required>
-                    <input type="text" name="p_work_info[]" placeholder="Місце роботи">
-                    <input type="text" name="p_phone[]" placeholder="Телефон" required>
-                    <select name="p_type[]">
-                        <option value="мати">Мати</option>
-                        <option value="батько">Батько</option>
-                        <option value="опікун">Опікун</option>
-                    </select>
+                    <p>
+                        <label>ПІБ:</label><br>
+                        <input type="text" name="p_full_name[]" required>
+                    </p>
+                    <p>
+                        <label>Тип (мати/батько/опікун):</label><br>
+                        <select name="p_type[]">
+                            <option value="мати">Мати</option>
+                            <option value="батько">Батько</option>
+                            <option value="опікун">Опікун</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label>Місце роботи:</label><br>
+                        <input type="text" name="p_work_info[]">
+                    </p>
+                    <p>
+                        <label>Телефон:</label><br>
+                        <input type="text" name="p_phone[]" required>
+                    </p>
                 </div>
             </div>
-            <button type="button" id="add-parent-btn">+ Додати ще одного</button>
+            <button type="button" id="add-parent-btn">+ Додати ще одного батька/опікуна</button>
         </div>
 
         <hr>
@@ -62,17 +120,29 @@ document.getElementById('add-parent-btn').addEventListener('click', function() {
     const newEntry = document.createElement('div');
     newEntry.className = 'parent-entry';
     
-    // Прибрано <hr> з початку шаблону
     newEntry.innerHTML = `
-        <input type="text" name="p_full_name[]" placeholder="ПІБ" required>
-        <input type="text" name="p_work_info[]" placeholder="Місце роботи">
-        <input type="text" name="p_phone[]" placeholder="Телефон" required>
-        <select name="p_type[]">
-            <option value="мати">Мати</option>
-            <option value="батько">Батько</option>
-            <option value="опікун">Опікун</option>
-        </select>
-        <button type="button" onclick="this.parentElement.remove()">Видалити</button>
+        <hr>
+        <p>
+            <label>ПІБ:</label><br>
+            <input type="text" name="p_full_name[]" required>
+        </p>
+        <p>
+            <label>Тип (мати/батько/опікун):</label><br>
+            <select name="p_type[]">
+                <option value="мати">Мати</option>
+                <option value="батько">Батько</option>
+                <option value="опікун">Опікун</option>
+            </select>
+        </p>
+        <p>
+            <label>Місце роботи:</label><br>
+            <input type="text" name="p_work_info[]">
+        </p>
+        <p>
+            <label>Телефон:</label><br>
+            <input type="text" name="p_phone[]" required>
+        </p>
+        <button type="button" onclick="this.parentElement.remove()">Видалити цього батька/опікуна</button>
     `;
     container.appendChild(newEntry);
 });
