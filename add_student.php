@@ -102,7 +102,7 @@ require 'blocks/header.php';
                     </p>
                     <p>
                         <label>Телефон:</label><br>
-                        <input type="text" name="p_phone[]" required>
+                        <input type="text" name="p_phone[]">
                     </p>
                 </div>
             </div>

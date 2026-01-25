@@ -47,7 +47,7 @@ require 'blocks/header.php';
     <h1>Перегляд та редагування студента</h1>
 
     <?php if (isset($_GET['updated'])): ?>
-        <p style="color: green;"><b>✅ Зміни збережено!</b></p>
+        <p style="color: green;"><b>Зміни збережено!</b></p>
     <?php endif; ?>
 
     <form action="logic/update_student.php" method="POST" onsubmit="return confirm('Зберегти зміни?');">
@@ -67,10 +67,10 @@ require 'blocks/header.php';
             <?php if (!empty($student['phone'])): ?>
                 <?php if (isValidPhone($student['phone'])): ?>
                     <a href="<?= formatPhoneForCall($student['phone']) ?>">
-                        <button type="button">📞 Зателефонувати</button>
+                        <button type="button">Зателефонувати</button>
                     </a>
                 <?php else: ?>
-                    <button type="button" onclick="alert('⚠️ Номер телефону не є дійсним!')">📞 Зателефонувати</button>
+                    <button type="button" onclick="alert('Номер телефону не є дійсним!')">Зателефонувати</button>
                 <?php endif; ?>
             <?php endif; ?>
         </p>
@@ -157,10 +157,10 @@ require 'blocks/header.php';
                             <br>
                             <?php if (isValidPhone($parent['phone'])): ?>
                                 <a href="<?= formatPhoneForCall($parent['phone']) ?>">
-                                    <button type="button">📞 Зателефонувати</button>
+                                    <button type="button">Зателефонувати</button>
                                 </a>
                             <?php else: ?>
-                                <button type="button" onclick="alert('⚠️ Номер телефону не є дійсним!')">📞 Зателефонувати</button>
+                                <button type="button" onclick="alert('Номер телефону не є дійсним!')">Зателефонувати</button>
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>

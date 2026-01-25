@@ -15,11 +15,11 @@ require 'blocks/header.php';
     <h2>Список групи</h2>
 
     <?php if (isset($_GET['success'])): ?>
-        <p><b>✅ Студента успішно додано!</b></p>
+        <p><b>Студента успішно додано!</b></p>
     <?php endif; ?>
 
     <?php if (isset($_GET['deleted'])): ?>
-        <p><b>✅ Студента успішно видалено!</b></p>
+        <p><b>Студента успішно видалено!</b></p>
     <?php endif; ?>
 
     <?php if (empty($students)): ?>
@@ -46,7 +46,7 @@ require 'blocks/header.php';
                     <td>
                         <form action="logic/delete_student.php" method="POST" style="display: inline;" onsubmit="return confirm('Ви впевнені, що хочете видалити студента <?= htmlspecialchars($s['full_name']) ?>? Також будуть видалені всі дані про батьків!');">
                             <input type="hidden" name="student_id" value="<?= $s['id'] ?>">
-                            <button type="submit">🗑️ Видалити</button>
+                            <button type="submit">Видалити</button>
                         </form>
                     </td>
                 </tr>

@@ -12,7 +12,8 @@
         <h1><?=$pageTitle?></h1>
         <nav>
             <a href="add_student.php">Додати студента</a> |
-            <a href="logout.php">Вийти (logout)</a>
+            <a href="change_password.php">Поміняти пароль</a> |
+            <a href="logout.php">Вийти</a> 
             <br><br>
             <form action="find_student.php" method="get">
                 <input type="text" name="full-name" placeholder="Пошук студента">

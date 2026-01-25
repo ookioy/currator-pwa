@@ -18,7 +18,7 @@ require 'blocks/header.php';
 ?>
 
 <main>
-    <a href="main.php">← До списку</a>
+    <a href="main.php">До списку</a>
     <h1>Результати пошуку</h1>
 
     <?php if ($search_query): ?>
@@ -33,18 +33,25 @@ require 'blocks/header.php';
                     <tr>
                         <th>ПІБ</th>
                         <th>Телефон</th>
+                        <th>Дії</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($results as $student): ?>
-                    <tr>
-                        <td>
-                            <a href="view_student.php?id=<?= $student['id'] ?>">
-                                <?= htmlspecialchars($student['full_name']) ?>
-                            </a>
-                        </td>
-                        <td><?= htmlspecialchars($student['phone'] ?? '—') ?></td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <a href="view_student.php?id=<?= $student['id'] ?>">
+                                    <?= htmlspecialchars($student['full_name']) ?>
+                                </a>
+                            </td>
+                            <td><?= htmlspecialchars($student['phone'] ?? '—') ?></td>
+                            <td>
+                                <form action="logic/delete_student.php" method="POST" style="display: inline;" onsubmit="return confirm('Ви впевнені, що хочете видалити студента <?= htmlspecialchars($s['full_name']) ?>? Також будуть видалені всі дані про батьків!');">
+                                    <input type="hidden" name="student_id" value="<?= $s['id'] ?>">
+                                    <button type="submit">Видалити</button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
