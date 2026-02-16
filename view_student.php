@@ -166,7 +166,7 @@ require 'blocks/header.php';
                     <?php foreach ($parents as $parent): ?>
                     <tr>
                         <td><strong><?= htmlspecialchars($parent['full_name']) ?></strong></td>
-                        <td><?= htmlspecialchars($parent['type']) ?></td>
+                        <td><?= $parent['type'] === 'mother' ? 'Мати' : 'Батько' ?></td>
                         <td><?= htmlspecialchars($parent['work_info'] ?? '—') ?></td>
                         <td>
                             <?= htmlspecialchars($parent['phone'] ?? '—') ?>

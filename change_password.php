@@ -80,7 +80,7 @@ require 'blocks/header.php';
 
     <!-- Важлива інформація -->
     <fieldset>
-        <leфgend><strong>Важливо:</strong></leфgend>
+        <legend><strong>Важливо:</strong></legend>
         <ul>
             <li>Після зміни пароля всі активні сесії будуть завершені</li>
             <li>Вам потрібно буде увійти заново з новим паролем</li>

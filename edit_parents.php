@@ -75,9 +75,8 @@ require 'blocks/header.php';
                                 <td><label for="type_<?= $parent['id'] ?>">Тип:</label></td>
                                 <td>
                                     <select id="type_<?= $parent['id'] ?>" name="type">
-                                        <option value="мати" <?= $parent['type'] === 'мати' ? 'selected' : '' ?>>Мати</option>
-                                        <option value="батько" <?= $parent['type'] === 'батько' ? 'selected' : '' ?>>Батько</option>
-                                        <option value="опікун" <?= $parent['type'] === 'опікун' ? 'selected' : '' ?>>Опікун</option>
+                                        <option value="mother" <?= $parent['type'] === 'mother' ? 'selected' : '' ?>>Мати</option>
+                                        <option value="father" <?= $parent['type'] === 'father' ? 'selected' : '' ?>>Батько</option>
                                     </select>
                                 </td>
                             </tr>
@@ -141,9 +140,8 @@ require 'blocks/header.php';
                     <td><label for="new_type">Тип:</label></td>
                     <td>
                         <select id="new_type" name="type">
-                            <option value="мати">Мати</option>
-                            <option value="батько">Батько</option>
-                            <option value="опікун">Опікун</option>
+                            <option value="mother">Мати</option>
+                            <option value="father">Батько</option>
                         </select>
                     </td>
                 </tr>

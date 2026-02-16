@@ -105,9 +105,8 @@ require 'blocks/header.php';
                     <p>
                         <label for="p_type_0">Тип:</label><br>
                         <select id="p_type_0" name="p_type[]">
-                            <option value="мати">Мати</option>
-                            <option value="батько">Батько</option>
-                            <option value="опікун">Опікун</option>
+                            <option value="mother">Мати</option>
+                            <option value="father">Батько</option>
                         </select>
                     </p>
                     
@@ -153,9 +152,8 @@ document.getElementById('add-parent-btn').addEventListener('click', function() {
         <p>
             <label for="p_type_${parentCount}">Тип:</label><br>
             <select id="p_type_${parentCount}" name="p_type[]">
-                <option value="мати">Мати</option>
-                <option value="батько">Батько</option>
-                <option value="опікун">Опікун</option>
+                <option value="mother">Мати</option>
+                <option value="father">Батько</option>
             </select>
         </p>
         

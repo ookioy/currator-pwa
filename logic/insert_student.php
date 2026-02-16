@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt_p->execute([
                     $student_id,
                     $name,
-                    $_POST['p_type'][$key] ?? 'мати',
+                    $_POST['p_type'][$key] ?? 'mother',
                     $_POST['p_work_info'][$key] ?? null,
                     $_POST['p_phone'][$key] ?? null
                 ]);
