@@ -13,52 +13,75 @@ $pageTitle = "Головна - Список групи";
 require 'blocks/header.php';
 ?>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* Стилі для кнопок дій */
+    .action-btn {
+        text-decoration: none;
+        padding: 5px 10px;
+        margin: 0 2px;
+        border-radius: 4px;
+        display: inline-block;
+        transition: opacity 0.3s;
+    }
+    .action-btn:hover {
+        opacity: 0.8;
+    }
+    /* Кольори кнопок */
+    .btn-view { color: #2196F3; }   /* Синій для перегляду */
+    .btn-edit { color: #FF9800; }   /* Помаранчевий для редагування */
+    .btn-delete { color: #F44336; } /* Червоний для видалення */
+</style>
+
 <main>
     <h2>Список групи</h2>
 
-    <!-- Повідомлення про успішні дії -->
-    <?php if (isset($_GET['success'])): ?>
-        <p><strong>Студента успішно додано!</strong></p>
-    <?php endif; ?>
-
     <?php if (isset($_GET['deleted'])): ?>
-        <p><strong>Студента успішно видалено!</strong></p>
+        <p style="color: red; border: 1px solid red; padding: 10px; background: #ffeaea;">
+            <strong>Студента успішно видалено!</strong>
+        </p>
     <?php endif; ?>
 
-    <!-- Перевірка чи є студенти -->
     <?php if (empty($students)): ?>
         <p><em>Студентів ще не додано.</em></p>
     <?php else: ?>
         <p>Всього студентів: <strong><?= count($students) ?></strong></p>
         
-        <!-- Таблиця зі списком студентів -->
-        <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse;">
             <thead>
-                <tr bgcolor="#e0e0e0">
-                    <th align="left" width="50%">ПІБ Студента</th>
-                    <th align="left" width="30%">Телефон</th>
-                    <th align="center" width="20%">Дії</th>
+                <tr bgcolor="#f0f0f0">
+                    <th align="left">ПІБ Студента</th>
+                    <th align="left">Телефон</th>
+                    <th align="center" width="150">Дії</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($students as $s): ?>
                 <tr>
-                    <!-- ПІБ з посиланням на профіль -->
                     <td>
-                        <a href="view_student.php?id=<?= $s['id'] ?>">
+                        <a href="view_student.php?id=<?= $s['id'] ?>" style="text-decoration: none; color: #333;">
                             <strong><?= htmlspecialchars($s['full_name']) ?></strong>
                         </a>
                     </td>
                     
-                    <!-- Телефон -->
                     <td><?= htmlspecialchars($s['phone'] ?? '—') ?></td>
                     
-                    <!-- Кнопка видалення -->
                     <td align="center">
-                        <form action="logic/delete_student.php" method="POST" onsubmit="return confirm('Ви впевнені, що хочете видалити студента <?= htmlspecialchars($s['full_name']) ?>? Також будуть видалені всі дані про батьків!');">
-                            <input type="hidden" name="student_id" value="<?= $s['id'] ?>">
-                            <button type="submit">Видалити</button>
-                        </form>
+                        <a href="view_student.php?id=<?= $s['id'] ?>" class="action-btn btn-view" title="Переглянути деталі">
+                            <i class="fa-solid fa-eye fa-lg"></i>
+                        </a>
+
+                        <a href="edit_student.php?id=<?= $s['id'] ?>" class="action-btn btn-edit" title="Редагувати">
+                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </a>
+
+                        <a href="logic/delete_student.php?id=<?= $s['id'] ?>" 
+                           class="action-btn btn-delete" 
+                           title="Видалити"
+                           onclick="return confirm('Ви дійсно хочете видалити студента <?= htmlspecialchars($s['full_name']) ?>? Всі дані (включно з батьками) будуть втрачені!');">
+                            <i class="fa-solid fa-trash fa-lg"></i>
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
