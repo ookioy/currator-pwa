@@ -38,7 +38,7 @@ require 'blocks/header.php';
     <h2>Список групи</h2>
 
     <?php if (isset($_GET['deleted'])): ?>
-        <p style="color: red; border: 1px solid red; padding: 10px; background: #ffeaea;">
+        <p style="color: green; border: 1px solid green; padding: 10px; background: #bfd0b9;">
             <strong>Студента успішно видалено!</strong>
         </p>
     <?php endif; ?>
@@ -60,12 +60,17 @@ require 'blocks/header.php';
                 <?php foreach ($students as $s): ?>
                 <tr>
                     <td>
-                        <a href="view_student.php?id=<?= $s['id'] ?>" style="text-decoration: none; color: #333;">
+                        <p href="view_student.php?id=<?= $s['id'] ?>" style="text-decoration: none; color: #333;">
                             <strong><?= htmlspecialchars($s['full_name']) ?></strong>
-                        </a>
+                        </p>
                     </td>
                     
-                    <td><?= htmlspecialchars($s['phone'] ?? '—') ?></td>
+                    <td>
+                        <?= htmlspecialchars($s['phone'] ?? '—') ?> 
+                        <?php if(!empty($s['phone'])): ?>
+                            <a href="tel:<?= preg_replace('/[^\d+]/', '', $s['phone']) ?>" style="text-decoration: none;">📞</a>
+                        <?php endif; ?>
+                    </td>
                     
                     <td align="center">
                         <a href="view_student.php?id=<?= $s['id'] ?>" class="action-btn btn-view" title="Переглянути деталі">
@@ -76,12 +81,16 @@ require 'blocks/header.php';
                             <i class="fa-solid fa-pen-to-square fa-lg"></i>
                         </a>
 
-                        <a href="logic/delete_student.php?id=<?= $s['id'] ?>" 
-                           class="action-btn btn-delete" 
-                           title="Видалити"
-                           onclick="return confirm('Ви дійсно хочете видалити студента <?= htmlspecialchars($s['full_name']) ?>? Всі дані (включно з батьками) будуть втрачені!');">
-                            <i class="fa-solid fa-trash fa-lg"></i>
-                        </a>
+                        <form action="logic/delete_student.php" method="POST" style="display:inline;"
+                              onsubmit="return confirm('Ви дійсно хочете видалити студента <?= htmlspecialchars($s['full_name'], ENT_QUOTES) ?>? Всі дані (включно з батьками) будуть втрачені!');">
+                            <input type="hidden" name="student_id" value="<?= $s['id'] ?>">
+                            <button type="submit"
+                                    class="action-btn btn-delete"
+                                    title="Видалити"
+                                    style="background: none; border: none; cursor: pointer;">
+                                <i class="fa-solid fa-trash fa-lg"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>
