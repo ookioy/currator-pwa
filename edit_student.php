@@ -1,33 +1,21 @@
 <?php
-// Підключення до БД та перевірка авторизації
 require 'logic/db.php';
 require 'logic/auth.php';
 
 protectPage($pdo);
 
-// Отримання ID студента
 $id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: main.php');
-    exit;
-}
+if (!$id) { header('Location: main.php'); exit; }
 
-// 1. Отримуємо дані студента
 $stmt = $pdo->prepare("SELECT * FROM students WHERE id = ?");
 $stmt->execute([$id]);
 $student = $stmt->fetch();
+if (!$student) die("Студента не знайдено!");
 
-if (!$student) {
-    die("Студента не знайдено!");
-}
-
-// 2. Отримуємо батьків
 $stmt_parents = $pdo->prepare("SELECT * FROM parents WHERE student_id = ?");
 $stmt_parents->execute([$id]);
 $parents_list = $stmt_parents->fetchAll();
 
-// 3. Розподіляємо батьків по змінних (щоб знати, де чиї дані)
-// Створюємо пусті шаблони, щоб не було помилок, якщо когось немає в базі
 $father = ['id' => '', 'full_name' => '', 'work_info' => '', 'phone' => ''];
 $mother = ['id' => '', 'full_name' => '', 'work_info' => '', 'phone' => ''];
 
@@ -51,12 +39,12 @@ require 'blocks/header.php';
         </p>
     <?php endif; ?>
 
-    <form action="logic/update_student.php" method="POST" onsubmit="return confirm('Зберегти зміни?');">
+    <!-- onsubmit removed — modal in footer handles confirmation -->
+    <form action="logic/update_student.php" method="POST">
         <input type="hidden" name="id" value="<?= $student['id'] ?>">
 
         <fieldset>
             <legend><strong>Дані студента</strong></legend>
-
             <table border="0" cellpadding="5" cellspacing="0" width="100%">
                 <tr>
                     <td><label for="full_name">ПІБ Студента: <em>*</em></label></td>
@@ -105,7 +93,7 @@ require 'blocks/header.php';
                 <tr>
                     <td colspan="2">
                         <label>
-                            <input type="checkbox" name="has_experience" value="1" <?= $student['has_experience'] ? 'checked' : '' ?>> 
+                            <input type="checkbox" name="has_experience" value="1" <?= $student['has_experience'] ? 'checked' : '' ?>>
                             Має досвід роботи
                         </label>
                     </td>
@@ -117,12 +105,11 @@ require 'blocks/header.php';
 
         <fieldset>
             <legend><strong>Дані батьків</strong></legend>
-            
+
             <div>
                 <h3>Батько</h3>
                 <input type="hidden" name="parents[father][id]" value="<?= $father['id'] ?>">
                 <input type="hidden" name="parents[father][type]" value="father">
-                
                 <table border="0" cellpadding="5">
                     <tr>
                         <td><label>ПІБ:</label></td>
@@ -143,7 +130,6 @@ require 'blocks/header.php';
                 <h3>Мати</h3>
                 <input type="hidden" name="parents[mother][id]" value="<?= $mother['id'] ?>">
                 <input type="hidden" name="parents[mother][type]" value="mother">
-                
                 <table border="0" cellpadding="5">
                     <tr>
                         <td><label>ПІБ:</label></td>
@@ -159,7 +145,6 @@ require 'blocks/header.php';
                     </tr>
                 </table>
             </div>
-            
         </fieldset>
 
         <br>
